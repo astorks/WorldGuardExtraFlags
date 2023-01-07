@@ -48,19 +48,16 @@ public class CommandOnEntryFlagHandler extends Handler
 	{
 		Collection<Set<String>> commands = toSet.queryAllValues(player, Flags.COMMAND_ON_ENTRY);
 
-		if (!this.getSession().getManager().hasBypass(player, (World) to.getExtent()))
+		for(Set<String> commands_ : commands)
 		{
-			for(Set<String> commands_ : commands)
+			if (!this.lastCommands.contains(commands_) && commands_.size() > 0)
 			{
-				if (!this.lastCommands.contains(commands_) && commands_.size() > 0)
+				for(String command : commands_)
 				{
-					for(String command : commands_)
-					{
-						Bukkit.getServer().dispatchCommand(((BukkitPlayer) player).getPlayer(), command.substring(1).replace("%username%", player.getName())); //TODO: Make this better
-					}
-
-					break;
+					Bukkit.getServer().dispatchCommand(((BukkitPlayer) player).getPlayer(), command.substring(1).replace("%username%", player.getName())); //TODO: Make this better
 				}
+
+				break;
 			}
 		}
 		

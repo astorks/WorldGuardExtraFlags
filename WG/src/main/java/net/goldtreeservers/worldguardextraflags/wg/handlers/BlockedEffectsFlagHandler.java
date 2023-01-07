@@ -78,7 +78,7 @@ public class BlockedEffectsFlagHandler extends FlagValueChangeHandler<Set<Potion
 	{
 		Player bukkitPlayer = ((BukkitPlayer) player).getPlayer();
 
-		if (!this.getSession().getManager().hasBypass(player, world) && value != null)
+		if (value != null)
 		{
 			for (PotionEffectType effectType : value)
 			{

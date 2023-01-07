@@ -66,19 +66,16 @@ public class ConsoleCommandOnExitFlagHandler extends Handler
             }
 		}
 
-		if (!this.getSession().getManager().hasBypass(player, (World) to.getExtent()))
+		for(Set<String> commands_ : this.lastCommands)
 		{
-			for(Set<String> commands_ : this.lastCommands)
+			if (!commands.contains(commands_))
 			{
-				if (!commands.contains(commands_))
+				for(String command : commands_)
 				{
-					for(String command : commands_)
-					{
-						Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), command.substring(1).replace("%username%", player.getName())); //TODO: Make this better
-					}
-
-					break;
+					Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), command.substring(1).replace("%username%", player.getName())); //TODO: Make this better
 				}
+
+				break;
 			}
 		}
 		

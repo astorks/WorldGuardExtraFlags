@@ -67,11 +67,6 @@ public class TeleportOnEntryFlagHandler extends FlagValueChangeHandler<Location>
 
 	public void handleValue(LocalPlayer player, World world, Location value)
 	{
-		if (this.getSession().getManager().hasBypass(player, world))
-		{
-			return;
-		}
-
 		if (value != null && WorldGuardUtils.hasNoTeleportLoop(this.plugin, ((BukkitPlayer) player).getPlayer(), value))
 		{
 			player.setLocation(value);
