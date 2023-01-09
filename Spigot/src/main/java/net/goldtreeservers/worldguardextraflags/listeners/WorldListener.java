@@ -47,18 +47,20 @@ public class WorldListener implements Listener
 
 	private void doUnloadChunkFlagCheck(org.bukkit.World world, Chunk chunk)
 	{
-		RegionManager regionManager = this.regionContainer.get(BukkitAdapter.adapt(world));
-		if (regionManager == null)
-		{
-			return;
-		}
-
-		for (ProtectedRegion region : regionManager.getApplicableRegions(new ProtectedCuboidRegion("UnloadChunkFlagTester", BlockVector3.at(chunk.getX() * 16, world.getMinHeight(), chunk.getZ() * 16), BlockVector3.at(chunk.getX() * 16 + 15, world.getMaxHeight(), chunk.getZ() * 16 + 15))))
-		{
-			if (region.getFlag(Flags.CHUNK_UNLOAD) == StateFlag.State.DENY)
+		try {
+			RegionManager regionManager = this.regionContainer.get(BukkitAdapter.adapt(world));
+			if (regionManager == null)
 			{
-				chunk.addPluginChunkTicket(this.plugin);
+				return;
 			}
-		}
+
+			for (ProtectedRegion region : regionManager.getApplicableRegions(new ProtectedCuboidRegion("UnloadChunkFlagTester", BlockVector3.at(chunk.getX() * 16, world.getMinHeight(), chunk.getZ() * 16), BlockVector3.at(chunk.getX() * 16 + 15, world.getMaxHeight(), chunk.getZ() * 16 + 15))))
+			{
+				if (region.getFlag(Flags.CHUNK_UNLOAD) == StateFlag.State.DENY)
+				{
+					chunk.addPluginChunkTicket(this.plugin);
+				}
+			}
+		} catch(java.lang.Exception: ex) { }
 	}
 }
