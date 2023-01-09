@@ -61,6 +61,6 @@ public class WorldListener implements Listener
 					chunk.addPluginChunkTicket(this.plugin);
 				}
 			}
-		} catch(java.lang.Exception: ex) { }
+		} catch(java.lang.Exception ex) { }
 	}
 }
